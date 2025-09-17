@@ -2534,7 +2534,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 				Section.LeftLine.ImageColor3 = SectionSettings.Color
 			end
 
-
 			Section.Title.TextTransparency = 1
 			TweenService:Create(Section.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
 
@@ -2925,6 +2924,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 					--})
 
 					DropdownOption.Indicator.Visible = DropdownSettings.MultipleOptions
+					DropdownOption.Indicator.BackgroundColor3 = SelectedTheme.ToggleDisabled
 
 					DropdownOption.Interact.ZIndex = 50
 					DropdownOption.Interact.MouseButton1Click:Connect(function()

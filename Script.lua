@@ -2500,7 +2500,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				local sizeX
 
 				if charCount <= baseChars then
-					sizeX = baseSize * (charCount / baseChars)
+					sizeX = baseSize
 				else
 					sizeX = baseSize / (1 + math.log(charCount / baseChars + 2))
 				end

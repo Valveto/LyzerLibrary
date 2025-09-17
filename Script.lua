@@ -2945,6 +2945,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 							else
 								Dropdown.Selected.Text = DropdownSettings.CurrentOption[1]
 							end
+							TweenService:Create(DropdownOption.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+							DropdownOption.Indicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 						else
 							if not DropdownSettings.MultipleOptions then
 								table.clear(DropdownSettings.CurrentOption)
@@ -2963,6 +2965,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 							end
 							TweenService:Create(DropdownOption.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 							TweenService:Create(DropdownOption, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.DropdownSelected}):Play()
+							DropdownOption.Indicator.BackgroundColor3 = Color3.fromRGB(60, 255, 0)
 							Debounce = true
 						end
 

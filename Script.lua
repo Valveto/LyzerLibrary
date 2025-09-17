@@ -2430,12 +2430,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Section.Title.Text = SectionSettings.Name
 			Section.Visible = true
 			Section.Parent = TabPage
-
+				print("a")
 			local function SizeLine(text)
 				local baseChars = 6 
 				local baseSize = 0.83  
 				local charCount = #text
-				local sizeX = baseSize * (baseChars / charCount)  
+				local sizeX = baseSize * (baseChars / charCount ^ 1.5)  
 				sizeX = math.clamp(sizeX, 0.1, baseSize)
 				return sizeX
 			end

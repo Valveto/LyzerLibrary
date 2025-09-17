@@ -779,6 +779,28 @@ local function AnimateButton(Button : GuiButton)
 
 end
 
+local function HoverEffect(Gui)
+	local UIScale = GetUIScale(Gui)
+
+	local Image = Gui:FindFirstChild("Image")
+
+	Gui.MouseEnter:Connect(function()
+		TweenUIScale(UIScale, 0.2, 1.10)
+
+		if Image then
+			TweenService:Create(Image, TweenInfo.new(0.7, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Rotation = Image.Rotation + 25 }):Play()
+		end
+	end)
+
+	Gui.MouseLeave:Connect(function()
+		TweenUIScale(UIScale, 0.2, 1)
+		if Image then
+			TweenService:Create(Image, TweenInfo.new(0.7, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Rotation = 0 }):Play()
+		end
+	end)
+
+end
+
 local function ChangeTheme(Theme)
 	if typeof(Theme) == 'string' then
 		SelectedTheme = RayfieldLibrary.Theme[Theme]
@@ -2086,6 +2108,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			TweenService:Create(TabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
 		end
 
+		HoverEffect(TabButton)
 
 		TabButton.Interact.MouseButton1Click:Connect(function()
 			if Minimised then return end
@@ -3252,6 +3275,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 
 			Toggle.Interact.MouseButton1Click:Connect(function()
+				local UIScale = GetUIScale(Toggle)
+				AnimateButton(Toggle)
 				if ToggleSettings.CurrentValue == true then
 					ToggleSettings.CurrentValue = false
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()

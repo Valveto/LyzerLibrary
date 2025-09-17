@@ -661,6 +661,26 @@ local warned
 local globalLoaded
 local rayfieldDestroyed = false -- True when RayfieldLibrary:Destroy() is called
 
+repeat
+	if Rayfield:FindFirstChild('Build') and Rayfield.Build.Value == InterfaceBuild then
+		correctBuild = true
+		break
+	end
+
+	correctBuild = false
+
+	if not warned then
+		warn('Rayfield | Build Mismatch')
+		print('Rayfield may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of Rayfield is intended for interface build '..InterfaceBuild..'.')
+		warned = true
+	end
+
+	toDestroy, Rayfield = Rayfield, useStudio and script.Parent:FindFirstChild('Rayfield') or game:GetObjects("rbxassetid://134444424108789")[1]
+	if toDestroy and not useStudio then toDestroy:Destroy() end
+
+	buildAttempts = buildAttempts + 1
+until buildAttempts >= 2
+
 Rayfield.Enabled = false
 
 if gethui then
@@ -1544,6 +1564,7 @@ end
 
 
 function RayfieldLibrary:CreateWindow(Settings)
+	print('creating window')
 	if Rayfield:FindFirstChild('Loading') then
 		if getgenv and not getgenv().rayfieldCached then
 			Rayfield.Enabled = true
@@ -1591,7 +1612,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 	Topbar.Title.Text = Settings.Name
 
 	Main.Size = UDim2.new(0, 420, 0, 100)
-    Main.Position = UDim2.new(0.5, 0, 0.5, 0)
 	Main.Visible = true
 	Main.BackgroundTransparency = 1
 	if Main:FindFirstChild('Notice') then Main.Notice.Visible = false end
@@ -1599,18 +1619,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 	LoadingFrame.Title.TextTransparency = 1
 	LoadingFrame.Subtitle.TextTransparency = 1
-
-    if Settings.TextsFont then
-        if Enum.Font[Settings.TextsFont] then
-            for _, Text in ipairs(Main:GetDescendants()) do
-                if Text:IsA("TextLabel") then
-                    Text.Font = Enum.Font[Settings.TextsFont]
-                end
-            end
-        else
-            warn("font doesn't exist")
-        end
-    end
 
 	if Settings.ShowText then
 		MPrompt.Title.Text = 'Show '..Settings.ShowText
@@ -3496,7 +3504,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 	TweenService:Create(LoadingFrame.Subtitle, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 	TweenService:Create(LoadingFrame.Version, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 	task.wait(0.1)
-	TweenService:Create(Main, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = useMobileSizing and UDim2.new(0, 626, 0, 393) or UDim2.new(0, 626, 0, 475)}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = useMobileSizing and UDim2.new(0, 500, 0, 275) or UDim2.new(0, 500, 0, 475)}):Play()
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {ImageTransparency = 0.6}):Play()
 
 	Topbar.BackgroundTransparency = 1

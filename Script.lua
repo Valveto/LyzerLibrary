@@ -755,6 +755,30 @@ local Notifications = Rayfield.Notifications
 
 local SelectedTheme = RayfieldLibrary.Theme.Default
 
+local function GetUIScale(Gui)
+	if Gui:FindFirstChildOfClass("UIScale") then
+		return Gui:FindFirstChildOfClass("UIScale")
+	else
+		local NewScale = Instance.new("UIScale")
+		NewScale.Parent = Gui
+		return NewScale
+	end
+end
+
+local function TweenUIScale(UIScale, Time, Scale)
+	if not UIScale then return end
+
+	TweenService:Create(UIScale, TweenInfo.new(Time or 0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = Scale or 1}):Play()
+end
+
+local function AnimateButton(Button : GuiButton)
+
+	local UIScale = Button:FindFirstChild("UIScale") :: UIScale
+
+	TweenUIScale(UIScale, 0.1, 0.9) task.delay(0.1, function() TweenUIScale(UIScale, 0.1, 1) end)
+
+end
+
 local function ChangeTheme(Theme)
 	if typeof(Theme) == 'string' then
 		SelectedTheme = RayfieldLibrary.Theme[Theme]
@@ -2065,6 +2089,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 		TabButton.Interact.MouseButton1Click:Connect(function()
 			if Minimised then return end
+
+			local UIScale = GetUIScale(TabButton)
+
+			AnimateButton(TabButton)
+
 			TweenService:Create(TabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 			TweenService:Create(TabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()

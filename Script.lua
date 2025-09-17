@@ -3126,6 +3126,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 							TweenService:Create(DropdownOpt.Title, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
 						end
 					end
+				else
+					SetDropdownOptions()
 				end
 			end
 

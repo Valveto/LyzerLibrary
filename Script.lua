@@ -2432,11 +2432,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Section.Parent = TabPage
 
 			local function SizeLine(text)
-				local baseSize = 0.83
-				local baseChars = 6
-				local reductionPerChar = 0.05 
-				local extraChars = math.max(#text - baseChars, 0)
-				local sizeX = math.max(baseSize - (extraChars * reductionPerChar), 0.1)
+				local baseChars = 6 
+				local baseSize = 0.83  
+				local charCount = #text
+				local sizeX = baseSize * (baseChars / charCount)  
+				sizeX = math.clamp(sizeX, 0.1, baseSize)
 				return sizeX
 			end
 

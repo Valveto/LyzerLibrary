@@ -2168,8 +2168,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 			TweenService:Create(Button.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
 			TweenService:Create(Button.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 
-			HoverEffect(Button)
-
 			Button.Interact.MouseButton1Click:Connect(function()
 				local Success, Response = pcall(ButtonSettings.Callback)
 				-- Prevents animation from trying to play if the button's callback called RayfieldLibrary:Destroy()
@@ -2929,6 +2927,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 					DropdownOption.Interact.ZIndex = 50
 					DropdownOption.Interact.MouseButton1Click:Connect(function()
+						AnimateButton(DropdownOption)
 						if not DropdownSettings.MultipleOptions and table.find(DropdownSettings.CurrentOption, Option) then 
 							return
 						end

@@ -2947,7 +2947,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 								Dropdown.Selected.Text = DropdownSettings.CurrentOption[1]
 							end
 							TweenService:Create(DropdownOption.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
-							DropdownOption.Indicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+							DropdownOption.Indicator.BackgroundColor3 = SelectedTheme.ToggleDisabled
 						else
 							if not DropdownSettings.MultipleOptions then
 								table.clear(DropdownSettings.CurrentOption)
@@ -2966,7 +2966,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 							end
 							TweenService:Create(DropdownOption.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 							TweenService:Create(DropdownOption, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.DropdownSelected}):Play()
-							DropdownOption.Indicator.BackgroundColor3 = Color3.fromRGB(60, 255, 0)
+							DropdownOption.Indicator.BackgroundColor3 = SelectedTheme.ToggleEnabled
 							Debounce = true
 						end
 
@@ -3125,9 +3125,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 							TweenService:Create(DropdownOpt, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 							TweenService:Create(DropdownOpt.Title, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
 							if table.find(DropdownSettings.CurrentOption, DropdownOpt.Name) then
-								DropdownOpt.Indicator.BackgroundColor3 = Color3.fromRGB(60, 255, 0)
+								DropdownOpt.Indicator.BackgroundColor3 = SelectedTheme.ToggleEnabled
 							else
-								DropdownOpt.Indicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+								DropdownOpt.Indicator.BackgroundColor3 = SelectedTheme.ToggleDisabled
 							end
 						end
 					end

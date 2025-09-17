@@ -2416,7 +2416,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 		end
 
 		-- Section
-		function Tab:CreateSection(SectionName)
+		function Tab:CreateSection(SectionSettings)
 
 			local SectionValue = {}
 
@@ -2427,12 +2427,33 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end
 
 			local Section = Elements.Template.SectionTitle:Clone()
-			Section.Title.Text = SectionName
+			Section.Title.Text = SectionSettings.Name
 			Section.Visible = true
 			Section.Parent = TabPage
 
+			if SectionSettings.Position and Enum.TextXAlignment[SectionSettings.Position] then
+				Section.Title.TextXAlignment = Enum.TextXAlignment[SectionSettings.Position]
+
+				if SectionSettings.Position == "Left" then
+					Section.RightLine.Visible = true
+					Section.RightLine.Size = UDim2.new(0.83, 0, 0.05, 0)
+				elseif SectionSettings.Position == "Right" then
+					Section.LeftLine.Visible = true
+					Section.LeftLine.Size = UDim2.new(0.83, 0, 0.05, 0)
+				elseif SectionSettings.Position == "Center" then
+					Section.RightLine.Visible = true
+					Section.LeftLine.Visible = true
+				end
+			end
+
+			if SectionSettings.Color then
+				Section.Title.TextColor3 = SectionSettings.Color
+				Section.RightLine.ImageColor3 = SectionSettings.Color
+				Section.LeftLine.ImageColor3 = SectionSettings.Color
+			end
+
 			Section.Title.TextTransparency = 1
-			TweenService:Create(Section.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0.4}):Play()
+			TweenService:Create(Section.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
 
 			function SectionValue:Set(NewSection)
 				Section.Title.Text = NewSection

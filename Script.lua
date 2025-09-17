@@ -3107,11 +3107,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 					end
 					TweenService:Create(Dropdown.List, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {ScrollBarImageTransparency = 1}):Play()
 					TweenService:Create(Dropdown.Toggle, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Rotation = 180}):Play()	
-					task.wait(0.35)
 					Dropdown.List.Visible = false
 
-					task.wait(0.5)
-					
+					SetDropdownOptions()
+
+					task.wait(0.35)
+
 					TweenService:Create(Dropdown, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, -10, 0, 180)}):Play()
 					Dropdown.List.Visible = true
 					TweenService:Create(Dropdown.List, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {ScrollBarImageTransparency = 0.7}):Play()
@@ -3126,7 +3127,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 						end
 					end
 				end
-				SetDropdownOptions()
 			end
 
 			if Settings.ConfigurationSaving then

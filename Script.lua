@@ -2430,17 +2430,22 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Section.Title.Text = SectionSettings.Name
 			Section.Visible = true
 			Section.Parent = TabPage
-				print("a")
-			local function SizeLine(text)
-				local baseChars = 6 
-				local baseSize = 0.83  
+				print("n")
+			local function GetLineSize(text)
+				local baseSize = 0.83   -- tamanho máximo da linha
+				local minSize = 0.15    -- tamanho mínimo da linha
+				local baseChars = 6     -- referência de caracteres
+
 				local charCount = #text
-				local sizeX = baseSize * (baseChars / charCount ^ 1.2)  
-				sizeX = math.clamp(sizeX, 0.1, baseSize)
+				-- Fórmula suave usando inverso + leve logaritmo para não diminuir rápido demais
+				local sizeX = baseSize / (1 + math.log(charCount / baseChars + 1))
+
+				-- Garantir que fique dentro do mínimo e máximo
+				sizeX = math.clamp(sizeX, minSize, baseSize)
 				return sizeX
 			end
 
-			local lineSizeX = SizeLine(Section.Title.Text)
+			local lineSizeX = GetLineSize(Section.Title.Text)
 
 			if SectionSettings.Position and Enum.TextXAlignment[SectionSettings.Position] then
 				Section.Title.TextXAlignment = Enum.TextXAlignment[SectionSettings.Position]

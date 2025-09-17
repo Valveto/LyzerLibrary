@@ -2431,18 +2431,31 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Section.Visible = true
 			Section.Parent = TabPage
 
+			local function SizeLine(text)
+				local baseSize = 0.83
+				local baseChars = 6
+				local reductionPerChar = 0.05 
+				local extraChars = math.max(#text - baseChars, 0)
+				local sizeX = math.max(baseSize - (extraChars * reductionPerChar), 0.1)
+				return sizeX
+			end
+
+			local lineSizeX = SizeLine(Section.Title.Text)
+
 			if SectionSettings.Position and Enum.TextXAlignment[SectionSettings.Position] then
 				Section.Title.TextXAlignment = Enum.TextXAlignment[SectionSettings.Position]
 
 				if SectionSettings.Position == "Left" then
 					Section.RightLine.Visible = true
-					Section.RightLine.Size = UDim2.new(0.83, 0, 0.05, 0)
+					Section.RightLine.Size = UDim2.new(lineSizeX, 0, 0.05, 0)
 				elseif SectionSettings.Position == "Right" then
 					Section.LeftLine.Visible = true
-					Section.LeftLine.Size = UDim2.new(0.83, 0, 0.05, 0)
+					Section.LeftLine.Size = UDim2.new(lineSizeX, 0, 0.05, 0)
 				elseif SectionSettings.Position == "Center" then
 					Section.RightLine.Visible = true
 					Section.LeftLine.Visible = true
+					Section.RightLine.Size = UDim2.new(lineSizeX, 0, 0.05, 0)
+					Section.LeftLine.Size = UDim2.new(lineSizeX, 0, 0.05, 0)
 				end
 			end
 
@@ -2451,6 +2464,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				Section.RightLine.ImageColor3 = SectionSettings.Color
 				Section.LeftLine.ImageColor3 = SectionSettings.Color
 			end
+
 
 			Section.Title.TextTransparency = 1
 			TweenService:Create(Section.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()

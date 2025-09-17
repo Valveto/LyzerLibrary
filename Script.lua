@@ -2432,16 +2432,18 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Section.Parent = TabPage
 
 			local function GetLineSize(text)
-				local baseSize = 0.83 
+				local baseSize = 0.83
 				local minSize = 0.15
-				local baseChars = 5
-
-				if #text <= baseChars then
-					return baseSize 
-				end
+				local baseChars = 6
 
 				local charCount = #text
-				local sizeX = baseSize / (1 + math.log(charCount / baseChars + 1))
+				local sizeX
+
+				if charCount <= baseChars then
+					sizeX = baseSize * (charCount / baseChars)
+				else
+					sizeX = baseSize / (1 + math.log(charCount / baseChars + 1))
+				end
 
 				sizeX = math.clamp(sizeX, minSize, baseSize)
 				return sizeX

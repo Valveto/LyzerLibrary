@@ -2942,7 +2942,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 								else
 									Dropdown.Selected.Text = "Various"
 								end
+								DropdownOption.Indicator.Visible = true
 							else
+								DropdownOption.Indicator.Visible = false
 								Dropdown.Selected.Text = DropdownSettings.CurrentOption[1]
 							end
 							TweenService:Create(DropdownOption.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()

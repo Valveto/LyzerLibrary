@@ -773,9 +773,15 @@ end
 
 local function AnimateButton(Button : GuiButton)
 
-	local UIScale = Button:FindFirstChild("UIScale") :: UIScale
+	local UIScale = GetUIScale(Button)
+
+	local Image = Button:FindFirstChild("Image")
 
 	TweenUIScale(UIScale, 0.1, 0.9) task.delay(0.1, function() TweenUIScale(UIScale, 0.1, 1) end)
+
+	if Image then
+		TweenService:Create(Image, TweenInfo.new(0.7, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Rotation = 0 - 25}):Play()
+	end
 
 end
 
@@ -3274,9 +3280,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 				TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
 			end)
 
+			HoverEffect(Toggle.Switch)
+
 			Toggle.Interact.MouseButton1Click:Connect(function()
-				local UIScale = GetUIScale(Toggle)
-				AnimateButton(Toggle)
+				local UIScale = GetUIScale(Toggle.Switch)
+				AnimateButton(Toggle.Switch)
 				if ToggleSettings.CurrentValue == true then
 					ToggleSettings.CurrentValue = false
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()

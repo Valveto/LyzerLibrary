@@ -3124,6 +3124,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 							end
 							TweenService:Create(DropdownOpt, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 							TweenService:Create(DropdownOpt.Title, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
+							if table.find(DropdownSettings.CurrentOption, DropdownOpt.Name) then
+								DropdownOpt.Indicator.BackgroundColor3 = Color3.fromRGB(60, 255, 0)
+							else
+								DropdownOpt.Indicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+							end
 						end
 					end
 				else

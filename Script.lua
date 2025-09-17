@@ -2434,7 +2434,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			local function GetLineSize(text)
 				local baseSize = 0.83 
 				local minSize = 0.15
-				local baseChars = 6 
+				local baseChars = 0 
 
 				if #text <= baseChars then
 					return baseSize 

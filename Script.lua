@@ -2175,6 +2175,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if rayfieldDestroyed then
 					return
 				end
+
+				AnimateButton(Button)
+
 				if not Success then
 					TweenService:Create(Button, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Button.ElementIndicator, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()

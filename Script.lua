@@ -2499,7 +2499,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				local charCount = #text
 				local sizeX
 
-				if charCount <= baseChars then
+				if charCount < baseChars then
 					sizeX = baseSize
 				else
 					sizeX = baseSize / (1 + math.log(charCount / baseChars + 2))

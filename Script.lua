@@ -2430,20 +2430,22 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Section.Title.Text = SectionSettings.Name
 			Section.Visible = true
 			Section.Parent = TabPage
-				print("c")
-			local function GetLineSize(text)
-				local baseSize = 0.83   -- tamanho máximo da linha
-				local minSize = 0.15    -- tamanho mínimo da linha
-				local baseChars = 6     -- referência de caracteres
 
-				local charCount = math.max(#text, baseChars)  -- evita que linhas cresçam para textos curtos
-				-- Fórmula suave usando logaritmo
-				local sizeX = baseSize / (1 + math.log(charCount / baseChars))
+			local function GetLineSize(text)
+				local baseSize = 0.83 
+				local minSize = 0.15
+				local baseChars = 6 
+
+				if #text <= baseChars then
+					return baseSize 
+				end
+
+				local charCount = #text
+				local sizeX = baseSize / (1 + math.log(charCount / baseChars + 1))
 
 				sizeX = math.clamp(sizeX, minSize, baseSize)
 				return sizeX
 			end
-
 
 			local lineSizeX = GetLineSize(Section.Title.Text)
 
@@ -3597,7 +3599,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 		createSettings(Window)
 	end)
 
-	if not success then warn('Rayfield had an issue creating settings.') end
+	if not success then warn('Rayfield had an issue creating settings. '..result) end
 
 	return Window
 end

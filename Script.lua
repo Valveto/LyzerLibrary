@@ -1518,7 +1518,7 @@ local function createSettings(window)
 
 	-- Create sections and elements
 	for categoryName, settingCategory in pairs(settingsTable) do
-		newTab:CreateSection(categoryName)
+		newTab:CreateSection({Name = categoryName, Position = "Center", Color = Color3.fromRGB(255, 255, 255)})
 
 		for settingName, setting in pairs(settingCategory) do
 			if setting.Type == 'input' then

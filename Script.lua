@@ -2589,7 +2589,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				Paragraph.UIStroke.Color = SelectedTheme.SecondaryElementStroke
 			end)
 
-			return ParagraphValue
+			return Paragraph
 		end
 
 		-- Input
@@ -2652,6 +2652,10 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 
 			Input.InputFrame.InputBox:GetPropertyChangedSignal("Text"):Connect(function()
+    			if InputSettings.OnlyNumeric then
+        			Input.InputFrame.InputBox.Text = string.gsub(Input.InputFrame.InputBox.Text, "%D", "")
+    			end
+
 				TweenService:Create(Input.InputFrame, TweenInfo.new(0.55, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, Input.InputFrame.InputBox.TextBounds.X + 24, 0, 30)}):Play()
 			end)
 

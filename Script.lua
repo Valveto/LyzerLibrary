@@ -2887,7 +2887,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 					--})
 
 					DropdownOption.Indicator.Visible = DropdownSettings.MultipleOptions
-					DropdownOption.Indicator.BackgroundColor3 = SelectedTheme.ToggleDisabled
+
+					if table.find(DropdownSettings.CurrentOption, DropdownOption.Name) then
+						DropdownOption.Indicator.BackgroundColor3 = SelectedTheme.ToggleEnabled
+					else
+						DropdownOption.Indicator.BackgroundColor3 = SelectedTheme.ToggleDisabled
+					end
 
 					DropdownOption.Interact.ZIndex = 50
 					DropdownOption.Interact.MouseButton1Click:Connect(function()

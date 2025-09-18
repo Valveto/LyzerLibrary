@@ -1987,6 +1987,13 @@ function RayfieldLibrary:CreateWindow(Settings)
 	Elements.UIPageLayout.FillDirection = Enum.FillDirection.Horizontal
 	TabList.Template.Visible = false
 
+	if Settings.BottomText and Settings.BottomText.Enabled == true then
+		Rayfield.Main.SomethingText.Visible = true
+		Rayfield.Main.SomethingText.Text = Settings.BottomText.Text
+	else
+		Rayfield.Main.SomethingText.Visible = false
+	end
+
 	-- Tab
 	local FirstTab = false
 	local Window = {}
